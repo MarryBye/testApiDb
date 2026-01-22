@@ -1,9 +1,3 @@
-create type public.genders as enum (
-    'male',
-    'female',
-    'other'
-);
-
 create table if not exists private.users (
     id serial primary key,
 
