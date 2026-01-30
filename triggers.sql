@@ -2,6 +2,7 @@ create or replace function hash_user_password() returns trigger as $$
 begin
     if tg_op = 'INSERT' then
         new.login := lower(new.login);
+        new.email := lower(new.email);
         new.password_hash := crypto.crypt(new.password_hash, crypto.gen_salt('bf', 12));
     end if;
 
@@ -11,6 +12,9 @@ begin
         end if;
         if new.login is distinct from old.login then
             new.login := lower(new.login);
+        end if;
+        if new.email is distinct from old.email then
+            new.email := lower(new.email);
         end if;
     end if;
 
